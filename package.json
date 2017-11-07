@@ -1,0 +1,18 @@
+{
+  "name": "newreddit",
+  "version": "1.0.0",
+  "description": "My attempt to learn how to make apps using MEAN by creating my own version of reddit",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Mooney",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.0"
+  }
+}
