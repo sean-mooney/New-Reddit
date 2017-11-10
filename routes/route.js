@@ -3,9 +3,17 @@ const router = express.Router();
 
 const User = require('../models/users');
 const Post = require('../models/posts');
+const Comment = require('../models/comments');
 
 //Get posts
 router.get('/posts', (req, res, next)=>{
+  Post.find(function(err, posts){
+    res.json(posts);
+  })
+});
+
+//Get a post
+router.get('/post/:id', (req, res, next)=>{
   Post.find(function(err, posts){
     res.json(posts);
   })
@@ -62,17 +70,11 @@ router.post('/post',(req, res, next)=>{
   let newPost = new Post({
     title: req.body.title,
     author: req.body.author,
-    timePosted: Date.now(),
+    date: Date.now(),
     upvotes: req.body.upvotes,
-    downvotes: req.body.upvotes,
+    downvotes: req.body.downvotes,
     postBody: req.body.postBody,
-    comments: [{
-      commentBody: req.body.commentBody,
-      commentAuthor: req.body.commentAuthor,
-      date: Date.now(),
-      upvotes: 0,
-      downvotes: 0,
-    }],
+    comments: []
   });
 
   newPost.save((err, post)=>{
@@ -81,6 +83,27 @@ router.post('/post',(req, res, next)=>{
     }
     else {
       res.json({msg: 'Posted submitted succesfully'});
+    }
+  });
+});
+
+//Add comment to post
+router.put('/post:id',(req, res, next)=>{
+  let newComment = new Comment({
+    body: req.body.commentBody,
+    author: req.body.commentBody,
+    // authorID: Schema.ObjectID(),
+    date: Date.now(),
+    upvotes: req.body.commentUpvotes,
+    downvotes: req.body.commentDownvotes
+  });
+
+  newComment.save((err, post)=>{
+    if(err){
+      res.json({msg: 'Failed to comment'});
+    }
+    else {
+      res.json({msg: 'Comment submitted succesfully'});
     }
   });
 });
