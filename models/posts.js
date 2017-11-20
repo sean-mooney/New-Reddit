@@ -21,7 +21,13 @@ const PostSchema = mongoose.Schema({
   postBody:{
     type: String,
   },
-  comments:[]
+  comments:[{
+    body: String,
+    user: String,
+    date: Date,
+    upvotes: Number,
+    downvotes: Number
+  }]
 });
 
 const Post = module.exports = mongoose.model('Post', PostSchema);

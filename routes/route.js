@@ -88,28 +88,32 @@ router.post('/post',(req, res, next)=>{
 });
 
 //Add comment to post
-router.put('/post:id',(req, res, next)=>{
-  let newComment = new Comment({
-    body: req.body.commentBody,
-    author: req.body.commentBody,
-    // authorID: Schema.ObjectID(),
-    date: Date.now(),
-    upvotes: req.body.commentUpvotes,
-    downvotes: req.body.commentDownvotes
-  });
+router.post('/post/comment',(req, res, next) => {
+  Post.findById(req.params.id, function (err, postFound){
+    let newComment = new Comment({
+      body: req.body.body,
+      user: req.body.user,
+      // authorID: Schema.ObjectID(),
+      date: Date.now(),
+      upvotes: req.body.upvotes,
+      downvotes: req.body.downvotes
+    });
 
-  newComment.save((err, post)=>{
-    if(err){
-      res.json({msg: 'Failed to comment'});
-    }
-    else {
-      res.json({msg: 'Comment submitted succesfully'});
-    }
-  });
+    newComment.save((err, comment) => {
+      if(err){
+        res.json({msg: 'Failed to comment'});
+      }
+      else {
+        postFound.comments.push(comment);
+        postFound.save();
+        res.json({msg: 'Comment submitted succesfully'});
+      }
+    });
+  })
 });
 
 //Delete post
-router.delete('/post/:id',(req, res, next)=>{
+router.delete('/post/:id',(req, res, next) => {
   Post.remove({_id: req.params.id}, function(err, result){
     if (err){
       res.json(err);

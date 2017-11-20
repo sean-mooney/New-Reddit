@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const CommentSchema = mongoose.Schema({
   body:{
     type: String,
+    default: '',
+    trim: true
   },
-  author:{
-    type: String
-  },
-  authorID:{
-    type: String
+  user:{
+    type: String,
+    ref: 'User',
   },
   date:{
     type: Date
