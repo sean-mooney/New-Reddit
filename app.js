@@ -36,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', route);
 
 //testing server
-app.get('/',(req, res)=>{
-  res.send('foobar');
+app.get('*',(req, res)=>{
+  res.sendfile('./public/index.html');
 });
 
 app.listen(port,()=>{
