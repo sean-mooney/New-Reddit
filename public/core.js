@@ -1,6 +1,6 @@
-var newReddit = angular.module('newReddit', []);
+var newReddit = angular.module('newReddit', ['angularMoment']);
 
-function mainController($scope, $http) {
+newReddit.controller('mainController', function($scope, $http) {
   $scope.formData = {};
 
   //home page retrieve posts
@@ -15,7 +15,7 @@ function mainController($scope, $http) {
 
   //when submitting a new post
   $scope.createPost = function() {
-    $http.post('/api/todos', $scope.formData)
+    $http.post('/api/posts', $scope.formData)
       .success(function(data) {
         $scope.formData = {}; //clear the form
         $scope.posts = data;
@@ -36,5 +36,5 @@ function mainController($scope, $http) {
       .error(function(data) {
         console.log('Error: ' + data);
       });
-  }
-}
+    }
+});

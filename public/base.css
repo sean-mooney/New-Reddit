@@ -1,4 +1,60 @@
-.post-list {
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.control-center ul {
+  list-style: none;
+  text-decoration: none;
+  float: right;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+
+.control-center li {
   float: left;
-  display: inline;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.like-counter {
+  width: 15px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.like-counter .glyphicon {
+  margin: auto;
+}
+
+.like-counter p {
+  margin: 2px 0 2px 0;
+}
+
+.post-list {
+  display: block;
+  width: 100%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.post-single {
+  margin: 10px 20px 10px 20px;
+  padding: 5px 10px 5px 10px;
+  line-height: 1;
+}
+
+.post-title p {
+  font-size: 20px;
+}
+
+.post-buttons ul {
+  padding: 0;
+}
+
+.post-buttons li {
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  list-style: none;
+  float: left;
 }

@@ -10,42 +10,69 @@
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="index.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script> <!-- used for relative time -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script> <!-- used for relative time -->
     <script src="core.js"></script>
   </head>
 
   <body ng-controller="mainController">
-    <div class="container">
-      <!-- Title -->
-      <div class="jumbotron text-center">
-        <h1>A New Reddit</h1>
-      </div>
+    <!-- Title -->
+    <div class="jumbotron text-center">
+      <h1>A New Reddit</h1>
+      <h3>by Sean Mooney</h3>
+    </div>
 
-      <!-- Posts -->
-      <div class="row post-list" id="postList">
-        <div class="col-sm-12">
-          <div ng-repeat="post in posts"> <!-- Repeat through posts -->
-            <div class="post-single">
-              <div class="like-counter">
-                <div class="glyphicon glyphicon-arrow-up login-required"></div>
-                <p>{{ post.upvotes - post.downvotes }}</p>
-                <div class="glyphicon glyphicon-arrow-down login-required"></div>
-              </div>
-              <div class="post-details">
-                <div class="post-title">
-                  <p>{{ post.title }}</p>
-                </div>
-                <div class="post-tagline">
-                  <p>submitted <time title="{{ post.date }}" datetime="{{ post.date }}"></time> by {{ post.author }}</p>
-                </div>
-                <div class="post-buttons">
-                </div>
-              </div>
+    <!-- Control Center -->
+    <div class="control-center">
+      <ul>
+        <li>Username</li>
+        <li>Notifications</li>
+        <li>settings</li>
+        <li>logout</li>
+      </ul>
+    </div>
+
+    <!-- Posts -->
+    <div class="post-list container" id="postList">
+      <div ng-repeat="post in posts | orderBy: '-upvotes'"> <!-- Repeat through posts -->
+        <div class="post-single row">
+          <div class="col-sm-3 like-counter">
+            <div class="glyphicon glyphicon-arrow-up login-required"></div>
+            <p>{{ post.upvotes - post.downvotes }}</p>
+            <div class="glyphicon glyphicon-arrow-down login-required"></div>
+          </div>
+          <div class="col-sm-9 post-details">
+            <div class="post-title">
+              <p><a href="/post/{{post._id}}">{{ post.title }}</a></p>
+            </div>
+            <div class="post-tagline">
+              <p>submitted <time am-time-ago="post.date" datetime="post.date" title="{{ post.date | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a'}}"></time> by <a href="/user/{{ post.authorID }}">{{ post.author }}</a></p>
+            </div>
+            <div class="post-buttons">
+              <ul>
+                <li><a href="/post/{{post._id}}">{{ post.comments.length }} comments</a></li>
+                <li>share</li>
+                <li>save</li>
+                <li>hide</li>
+                <li>report</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
+    <!-- Create a new post -->
+    <form ng-submit="createPost()">
+      <h3>Add a new post</h3>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Title" ng-model="title"></input>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Link" ng-model="link"></input>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
   </body>
 </html>

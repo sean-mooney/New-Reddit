@@ -5,7 +5,14 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  link:{
+    type: String,
+    required: true
+  },
   author:{
+    type: String,
+  },
+  authorID:{
     type: String,
   },
   date:{

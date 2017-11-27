@@ -1,0 +1,9 @@
+.post-buttons ul {
+  padding: 0;
+}
+
+.post-buttons li {
+  text-decoration: none;
+  list-style: none;
+  float: left;
+}

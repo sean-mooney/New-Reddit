@@ -1,5 +1,4 @@
 //import modules
-
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
@@ -36,8 +35,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', route);
 
 //testing server
-app.get('*',(req, res)=>{
-  res.sendfile('./public/index.html');
+app.get('/',(req, res) => {
+  res.sendFile(__dirname + '/public/index.html'); //
+});
+
+app.get('/post/:id',(req, res) => {
+  res.sendFile(__dirname + '/public/post.html'); //
+});
+
+app.get('/user/:id',(req, res) => {
+  res.sendFile(__dirname + '/public/user.html'); //
 });
 
 app.listen(port,()=>{

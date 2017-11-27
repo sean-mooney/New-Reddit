@@ -14,8 +14,8 @@ router.get('/posts', (req, res, next)=>{
 
 //Get a post
 router.get('/post/:id', (req, res, next)=>{
-  Post.find(function(err, posts){
-    res.json(posts);
+  Post.find(function(err, post){
+    res.json(post);
   })
 });
 
@@ -100,7 +100,7 @@ router.post('/post/comment',(req, res, next) => {
     });
 
     newComment.save((err, comment) => {
-      if(err){
+      if (err) {
         res.json({msg: 'Failed to comment'});
       }
       else {
@@ -115,7 +115,7 @@ router.post('/post/comment',(req, res, next) => {
 //Delete post
 router.delete('/post/:id',(req, res, next) => {
   Post.remove({_id: req.params.id}, function(err, result){
-    if (err){
+    if (err) {
       res.json(err);
     }
     else {
@@ -123,7 +123,5 @@ router.delete('/post/:id',(req, res, next) => {
     }
   });
 });
-
-
 
 module.exports = router;
