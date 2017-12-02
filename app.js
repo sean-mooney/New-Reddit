@@ -1,11 +1,16 @@
 //import modules
-var express = require('express');
-var mongoose = require('mongoose');
-var bodyparser = require('body-parser');
-var cors = require('cors');
-var path = require('path');
-
-var app = express();
+let express = require('express');
+let mongoose = require('mongoose');
+let bodyparser = require('body-parser');
+let cors = require('cors');
+let path = require('path');
+let morgan = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let session = require('express-session');
+let flash = require('connect-flash');
+let passport = require('passport');
+let app = express();
 
 const route = require('./routes/route');
 
@@ -28,13 +33,32 @@ app.use(cors());
 //body - parser
 app.use(bodyparser.json());
 
+//morgan
+app.use(morgan('dev')); //log requests to the console
+
+//cookie parser
+app.use(cookieParser());
+
+// required for passport
+app.use(session({ secret: 'newRedditBestRedditSorta' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
 app.use('/api', route);
 
-//testing server
+//passport
+// app.use(require('serve-static')(__dirname + '/../../public'));
+// app.use(require('cookie-parser')());
+// app.use(require('body-parser').urlencoded({ extended: true }));
+// app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+
+
+//server
 app.get('/',(req, res) => {
   res.sendFile(__dirname + '/public/index.html'); //
 });
