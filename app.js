@@ -1,3 +1,9 @@
+//DEPRECATED FILE
+//ONLY INCLUDED FOR REFERENCE WHEN WORKING ON OTHER FEATURES
+//PRIOR TO MIGRATING THIS CODE TO SERVER.JS FILE
+
+//DO NOT EDIT FOR LIVE USE
+
 //import modules
 let express = require('express');
 let mongoose = require('mongoose');
@@ -40,7 +46,13 @@ app.use(morgan('dev')); //log requests to the console
 app.use(cookieParser());
 
 // required for passport
-app.use(session({ secret: 'newRedditBestRedditSorta' })); // session secret
+app.use(session({
+  secret: 'newRedditBestRedditSorta',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -49,27 +61,14 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
-app.use('/api', route);
+// app.use('/', route);
+require('./routes/route')(app, passport);
 
 //passport
 // app.use(require('serve-static')(__dirname + '/../../public'));
 // app.use(require('cookie-parser')());
 // app.use(require('body-parser').urlencoded({ extended: true }));
 // app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-
-
-//server
-app.get('/',(req, res) => {
-  res.sendFile(__dirname + '/public/index.html'); //
-});
-
-app.get('/post/:id',(req, res) => {
-  res.sendFile(__dirname + '/public/post.html'); //
-});
-
-app.get('/user/:id',(req, res) => {
-  res.sendFile(__dirname + '/public/user.html'); //
-});
 
 app.listen(port,()=>{
   console.log('Server started on port: ' + port);

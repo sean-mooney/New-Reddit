@@ -4,7 +4,7 @@ newReddit.controller('mainController', function($scope, $http) {
   $scope.formData = {};
 
   //home page retrieve posts
-  $http.get('/api/posts')
+  $http.get('/posts')
     .success(function(data) {
       $scope.posts = data;
       console.log(data);
@@ -15,7 +15,7 @@ newReddit.controller('mainController', function($scope, $http) {
 
   //when submitting a new post
   $scope.createPost = function() {
-    $http.post('/api/posts', $scope.formData)
+    $http.post('/posts', $scope.formData)
       .success(function(data) {
         $scope.formData = {}; //clear the form
         $scope.posts = data;
@@ -28,7 +28,7 @@ newReddit.controller('mainController', function($scope, $http) {
 
   //delete a post
   $scope.deletePost = function(id) {
-    $http.delete('/api/posts/' + id)
+    $http.delete('/posts/' + id)
       .success(function(data) {
         $scope.posts = data;
         console.log(data);

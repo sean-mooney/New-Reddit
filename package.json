@@ -2,7 +2,7 @@
   "name": "newreddit",
   "version": "1.0.0",
   "description": "My attempt to learn how to make apps using MEAN by creating my own version of reddit",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
