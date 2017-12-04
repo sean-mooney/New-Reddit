@@ -15,7 +15,7 @@ let session      = require('express-session');
 mongoose.connect('mongodb://localhost:27017'); //connect
 
 //static files
-// require('./config/passport')(passport);
+require('./config/login')(passport);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //set up express application

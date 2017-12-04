@@ -1,6 +1,6 @@
 var newReddit = angular.module('newReddit', ['angularMoment']);
 
-newReddit.controller('mainController', function($scope, $http) {
+newReddit.controller('postsController', function($scope, $http) {
   $scope.formData = {};
 
   //home page retrieve posts
